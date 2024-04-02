@@ -14,7 +14,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity
 @Table(name = "chats")
 public class Chat implements Serializable {
