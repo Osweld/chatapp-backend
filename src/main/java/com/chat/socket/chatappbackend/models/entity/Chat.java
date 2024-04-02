@@ -15,6 +15,7 @@ public class Chat implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_chat")
     private Long id;
     @Column(name = "name", length = 100)
     private String name;
