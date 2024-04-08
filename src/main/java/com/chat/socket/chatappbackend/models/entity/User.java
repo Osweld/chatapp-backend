@@ -6,6 +6,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -31,6 +32,8 @@ public class User implements Serializable {
     private String email;
     @Column(name = "is_active",nullable = false)
     private Boolean isActive;
+    @Column(name = "create_at", nullable = false)
+    private LocalDateTime createAt;
 
     @Override
     public final boolean equals(Object o) {
