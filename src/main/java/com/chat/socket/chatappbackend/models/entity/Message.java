@@ -3,9 +3,8 @@ package com.chat.socket.chatappbackend.models.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
-
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -27,7 +26,7 @@ public class Message implements Serializable {
     @Column(name = "message",nullable = false,length = 250)
     private String message;
     @Column(name = "timestamp", nullable = false)
-    private LocalDate timestamp;
+    private LocalDateTime timestamp;
     @Column(name = "is_read",nullable = false)
     private Boolean isRead;
     @ManyToOne()

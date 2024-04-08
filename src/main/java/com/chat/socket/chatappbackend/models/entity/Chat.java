@@ -6,7 +6,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -28,7 +28,7 @@ public class Chat implements Serializable {
     @Column(name = "name", length = 100)
     private String name;
     @Column(name = "update_at")
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
 
     @Override
     public final boolean equals(Object o) {

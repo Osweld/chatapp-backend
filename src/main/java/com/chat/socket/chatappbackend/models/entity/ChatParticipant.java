@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class ChatParticipant implements Serializable {
     @Column(name = "id_chat_participant")
     private Long id;
     @Column(name = "joined_at", nullable = false)
-    private LocalDate joinedAt;
+    private LocalDateTime joinedAt;
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
