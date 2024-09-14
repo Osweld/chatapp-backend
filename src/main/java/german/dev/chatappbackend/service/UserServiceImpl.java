@@ -1,5 +1,6 @@
 package german.dev.chatappbackend.service;
 
+import german.dev.chatappbackend.exception.UserNotFoundException;
 import german.dev.chatappbackend.model.projection.UserProjection;
 import german.dev.chatappbackend.model.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -22,23 +23,30 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserProjection findById(Long idUser) {
-        return userRepository.findUserById(idUser);
+        return userRepository.findUserById(idUser).orElseThrow(()->
+                new UserNotFoundException("User with id: " + idUser + " not found"));
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserProjection findByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+        return userRepository.findUserByUsername(username).orElseThrow(()->
+                new UserNotFoundException("User with username: " + username + " not found"));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<UserProjection> searchUserByUsername(String username) {
         Pageable pageable = PageRequest.of(0,5);
-        return userRepository.searchByUsername(username, pageable).stream().toList();
+        List<UserProjection> users = userRepository.searchByUsername(username, pageable).stream().toList();
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("No users found with username containing '" + username + "'");
+        }
+        return users;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<UserProjection> findAllUsers(int page, int size) {
         return userRepository.findAllUsers(PageRequest.of(page, size));
     }

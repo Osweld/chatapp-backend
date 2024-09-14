@@ -7,17 +7,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Optional;
+
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
     @Query("SELECT u.id as id, u.username as username, u.email as email, u.createdAt as createdAt, r.name as rol, s.name as status " +
             "FROM User u JOIN u.rol r JOIN u.status s WHERE u.id = :id")
-    UserProjection findUserById(Long id);
+    Optional<UserProjection> findUserById(Long id);
 
     @Query("SELECT u.id as id, u.username as username, u.email as email, u.createdAt as createdAt, r.name as rol, s.name as status " +
             "FROM User u JOIN u.rol r JOIN u.status s WHERE u.username = :username")
-    UserProjection findUserByUsername(String username);
+    Optional<UserProjection> findUserByUsername(String username);
 
     @Query("SELECT u.id as id, u.username as username, u.email as email, u.createdAt as createdAt, r.name as rol, s.name as status " +
             "FROM User u JOIN u.rol r JOIN u.status s WHERE LOWER(u.username) LIKE LOWER(CONCAT('%', :username, '%'))")
